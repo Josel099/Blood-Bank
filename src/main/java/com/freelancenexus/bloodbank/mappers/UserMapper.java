@@ -10,11 +10,13 @@ import com.freelancenexus.bloodbank.dto.requests.UserCreateRequest;
 @Mapper(componentModel = "spring")
 public interface UserMapper {
 
-    
-    
     @Mappings({
-        @Mapping(target = "id",ignore = true),
+        @Mapping(target = "id", ignore = true),
+        @Mapping(target = "age", ignore = true),
+        @Mapping(target = "contactNum", ignore = true), 
+        @Mapping(target = "address", ignore = true),
+        @Mapping(target = "bloodGroup", ignore = true),
     })
     User toUserEntity(UserCreateRequest userCreateRequest);
-    
+
 }

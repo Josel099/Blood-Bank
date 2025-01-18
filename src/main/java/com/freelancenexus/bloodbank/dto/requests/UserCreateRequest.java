@@ -1,5 +1,6 @@
 package com.freelancenexus.bloodbank.dto.requests;
 
+import com.freelancenexus.bloodbank.enums.BloodGroup;
 import com.freelancenexus.bloodbank.enums.Roles;
 
 import lombok.Getter;
@@ -12,6 +13,14 @@ public class UserCreateRequest {
     private String userName;
 
     private String password;
+
+    private Integer age;
+
+    private String contactNum;
+
+    private String address;
+
+    private BloodGroup bloodGroup;
 
     private Roles role;
 
