@@ -1,11 +1,12 @@
 package com.freelancenexus.bloodbank.service;
 
-import com.freelancenexus.bloodbank.db.entities.User;
 import com.freelancenexus.bloodbank.dto.requests.UserCreateRequest;
+import com.freelancenexus.bloodbank.dto.requests.UserLoginDTO;
+import com.freelancenexus.bloodbank.dto.responses.UserResponse;
 
 public interface UserService {
 
-    public void register(UserCreateRequest userCreateRequest);
+    public UserResponse register(UserCreateRequest userCreateRequest);
     
-    public User findByusername(String userName);
+    public UserResponse loginUser(UserLoginDTO loginInfo);
 }
