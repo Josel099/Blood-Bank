@@ -11,7 +11,7 @@ import lombok.Setter;
 @AllArgsConstructor
 public class BloodInfoResponse {
 
-    private Long Id;
+    private Long id;
 
     private BloodGroup bloodGroup;
 

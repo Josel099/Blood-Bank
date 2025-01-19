@@ -7,5 +7,7 @@ import com.freelancenexus.bloodbank.dto.responses.BloodInfoResponse;
 public interface BloodInfoService {
 
     List<BloodInfoResponse> getAllBloodInfo();
+
+    BloodInfoResponse updateBloodInfo(Long id, Integer integer);
     
 }
