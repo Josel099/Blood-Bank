@@ -35,6 +35,7 @@ public class User extends BaseEntity {
     @Column(name = "address")
     private String address;
 
+    @NotNull
     @Enumerated(EnumType.STRING)
     @Column(name = "blood_group")
     private BloodGroup bloodGroup;

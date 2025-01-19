@@ -2,10 +2,9 @@ package com.freelancenexus.bloodbank.db.entities;
 
 import java.time.ZonedDateTime;
 
-import com.freelancenexus.bloodbank.enums.BloodGroup;
 import com.freelancenexus.bloodbank.enums.RequestStatus;
-import com.freelancenexus.bloodbank.enums.RequestType;
 
+import io.micrometer.core.annotation.Counted;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -29,14 +28,6 @@ public class BloodRequestInfo extends BaseEntity {
     private User user;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "request_type")
-    private RequestType requestType;
-
-    @Enumerated(EnumType.STRING)
-    @Column(name = "blood_group")
-    private BloodGroup bloodGroup;
-
-    @Enumerated(EnumType.STRING)
     @Column(name = "status")
     private RequestStatus status;
 
@@ -49,5 +40,8 @@ public class BloodRequestInfo extends BaseEntity {
 
     @Column(name = "approved_time")
     private ZonedDateTime approvedTime;
+
+    @Column(name = "transaction_completed_time")
+    private ZonedDateTime transactionCompletedTime;
 
 }
