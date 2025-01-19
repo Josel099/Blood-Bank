@@ -1,0 +1,35 @@
+package com.freelancenexus.bloodbank.controllers;
+
+import java.util.List;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.freelancenexus.bloodbank.dto.responses.BloodInfoResponse;
+import com.freelancenexus.bloodbank.service.BloodInfoService;
+
+@RestController
+@RequestMapping("/api/v1/blood_info")
+public class BloodInfoController {
+
+    private final BloodInfoService bloodInfoService;
+
+
+    /**
+     * @param bloodInfoService
+     */
+    public BloodInfoController(BloodInfoService bloodInfoService) {
+        super();
+        this.bloodInfoService = bloodInfoService;
+    }
+
+    @GetMapping
+    public ResponseEntity<List<BloodInfoResponse>> getAllBloodInfo() {
+        List<BloodInfoResponse> response = bloodInfoService.getAllBloodInfo();
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+}
