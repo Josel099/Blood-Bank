@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.freelancenexus.bloodbank.dto.requests.UserCreateRequest;
+import com.freelancenexus.bloodbank.dto.requests.UserLoginDTO;
+import com.freelancenexus.bloodbank.dto.responses.UserResponse;
 import com.freelancenexus.bloodbank.service.UserService;
 
 @RestController
@@ -26,10 +28,16 @@ public class UserController {
     }
 
     @PostMapping
-    public ResponseEntity<?> addUser(@RequestBody UserCreateRequest userCreateRequest) {
-        userService.register(userCreateRequest);
+    public ResponseEntity<UserResponse> addUser(@RequestBody UserCreateRequest userCreateRequest) {
+        UserResponse response = userService.register(userCreateRequest);
         log.info("User added successfully");
-        return new ResponseEntity<>("User added successfully", HttpStatus.OK);
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<UserResponse> loginUser(@RequestBody UserLoginDTO loginInfo) {
+        UserResponse responseDTO = userService.loginUser(loginInfo);
+        return new ResponseEntity<>(responseDTO, HttpStatus.OK);
     }
 
 }

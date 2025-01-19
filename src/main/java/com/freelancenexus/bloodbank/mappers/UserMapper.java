@@ -6,6 +6,7 @@ import org.mapstruct.Mappings;
 
 import com.freelancenexus.bloodbank.db.entities.User;
 import com.freelancenexus.bloodbank.dto.requests.UserCreateRequest;
+import com.freelancenexus.bloodbank.dto.responses.UserResponse;
 
 @Mapper(componentModel = "spring")
 public interface UserMapper {
@@ -14,5 +15,7 @@ public interface UserMapper {
         @Mapping(target = "id", ignore = true)
     })
     User toUserEntity(UserCreateRequest userCreateRequest);
+
+    UserResponse toResponse(User user);
 
 }

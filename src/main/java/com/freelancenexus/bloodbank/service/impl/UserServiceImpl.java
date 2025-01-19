@@ -5,6 +5,8 @@ import org.springframework.stereotype.Service;
 import com.freelancenexus.bloodbank.db.entities.User;
 import com.freelancenexus.bloodbank.db.repositories.UserRepository;
 import com.freelancenexus.bloodbank.dto.requests.UserCreateRequest;
+import com.freelancenexus.bloodbank.dto.requests.UserLoginDTO;
+import com.freelancenexus.bloodbank.dto.responses.UserResponse;
 import com.freelancenexus.bloodbank.mappers.UserMapper;
 import com.freelancenexus.bloodbank.service.UserService;
 
@@ -23,15 +25,22 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void register(UserCreateRequest userCreateRequest) {
+    public UserResponse register(UserCreateRequest userCreateRequest) {
         User user = userMapper.toUserEntity(userCreateRequest);
-        userRepository.save(user);
+       return userMapper.toResponse(userRepository.save(user)); 
     }
 
+
     @Override
-    public User findByusername(String userName) {
-        // TODO Auto-generated method stub
-        return null;
+    public UserResponse loginUser(UserLoginDTO loginInfo) {
+        User user = userRepository.findByUserName(loginInfo.getUserName())
+            .orElseThrow(() -> new RuntimeException("Invalid username or password"));
+
+        if (!user.getPassword().equals(loginInfo.getPassword())) {
+            throw new RuntimeException("Login Failed");
+        }
+
+        return userMapper.toResponse(user);
     }
 
 }
