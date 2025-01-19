@@ -2,6 +2,10 @@ package com.freelancenexus.bloodbank.service.impl;
 
 import java.time.ZonedDateTime;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.freelancenexus.bloodbank.db.entities.BloodInfo;
@@ -103,7 +107,37 @@ public class BloodRequestServiceImpl implements BloodRequestService {
             } else {
                 bloodInfo.setQuantity(quantity);
             }
-        };
+        }
+        ;
+    }
+
+    @Override
+    public Page<BloodRequestInfoResponseDTO> getAllRequests(int page, int size, String sort) {
+        Pageable pageable = constructPageable(page, size, sort);
+        Page<BloodRequestInfo> requests = bloodRequestRepository.findAll(pageable);
+        return requests.map(bloodRequestMapper::toResponseDTO);
+    }
+
+    @Override
+    public Page<BloodRequestInfoResponseDTO> getRequestsByStatus(RequestStatus status, int page,
+        int size, String sort) {
+        Pageable pageable = constructPageable(page, size, sort);
+        Page<BloodRequestInfo> requests = bloodRequestRepository.findByStatus(status, pageable);
+        return requests.map(bloodRequestMapper::toResponseDTO);
+    }
+
+    @Override
+    public Page<BloodRequestInfoResponseDTO> getRequestsByUserId(Long userId, int page, int size,
+        String sort) {
+        Pageable pageable = constructPageable(page, size, sort);
+        Page<BloodRequestInfo> requests = bloodRequestRepository.findByUserId(userId, pageable);
+        return requests.map(bloodRequestMapper::toResponseDTO);
+    }
+
+    private Pageable constructPageable(int page, int size, String sort) {
+        String[] sortParams = sort.split(",");
+        Sort sorting = Sort.by(Sort.Direction.fromString(sortParams[1]), sortParams[0]);
+        return PageRequest.of(page, size, sorting);
     }
 
 }
