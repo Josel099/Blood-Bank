@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.freelancenexus.bloodbank.dto.responses.BloodInfoResponse;
 import com.freelancenexus.bloodbank.service.BloodInfoService;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/api/v1/blood_info")
 public class BloodInfoController {

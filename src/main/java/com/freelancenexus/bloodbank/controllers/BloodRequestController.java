@@ -3,6 +3,7 @@ package com.freelancenexus.bloodbank.controllers;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,6 +19,7 @@ import com.freelancenexus.bloodbank.dto.responses.BloodRequestInfoResponseDTO;
 import com.freelancenexus.bloodbank.enums.RequestStatus;
 import com.freelancenexus.bloodbank.service.BloodRequestService;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/api/v1/blood_request")
 public class BloodRequestController {
