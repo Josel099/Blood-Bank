@@ -20,14 +20,14 @@ public interface BloodRequestMapper {
         @Mapping(target = "id", ignore = true), @Mapping(target = "user", source = "user"),
         @Mapping(target = "status", ignore = true),
         @Mapping(target = "requestedTime", ignore = true),
-        @Mapping(target = "approvedTime", ignore = true)
+        @Mapping(target = "approvedTime", ignore = true),
+        @Mapping(target = "bloodGroup", source = "user.bloodGroup")
     })
     BloodRequestInfo toBloodRequestInfoEntity(BloodRequestInfoDTO bloodRequestInfoDTO, User user);
 
     @Mappings({
         @Mapping(target = "userId", source = "bloodRequestInfo.user.id"),
         @Mapping(target = "userName", source = "bloodRequestInfo.user.userName"),
-        @Mapping(target = "bloodGroup", source = "bloodRequestInfo.user.bloodGroup"),
     })
     BloodRequestInfoResponseDTO toResponseDTO(BloodRequestInfo bloodRequestInfo);
 

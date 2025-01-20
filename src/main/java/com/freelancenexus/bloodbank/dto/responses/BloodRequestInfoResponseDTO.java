@@ -4,6 +4,7 @@ import java.time.ZonedDateTime;
 
 import com.freelancenexus.bloodbank.enums.BloodGroup;
 import com.freelancenexus.bloodbank.enums.RequestStatus;
+import com.freelancenexus.bloodbank.enums.Urgency;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -27,7 +28,9 @@ public class BloodRequestInfoResponseDTO {
     private ZonedDateTime requestedTime;
 
     private ZonedDateTime approvedTime;
-    
+
     private ZonedDateTime transactionCompletedTime;
+
+    private Urgency urgency;
 
 }
