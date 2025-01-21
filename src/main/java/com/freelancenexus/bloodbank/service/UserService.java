@@ -9,4 +9,6 @@ public interface UserService {
     public UserResponseDTO register(UserCreateRequest userCreateRequest);
     
     public UserResponseDTO loginUser(UserLoginDTO loginInfo);
+
+    public UserResponseDTO getUserInfo(Long id);
 }

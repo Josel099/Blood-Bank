@@ -27,9 +27,8 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserResponseDTO register(UserCreateRequest userCreateRequest) {
         User user = userMapper.toUserEntity(userCreateRequest);
-       return userMapper.toResponse(userRepository.save(user)); 
+        return userMapper.toResponse(userRepository.save(user));
     }
-
 
     @Override
     public UserResponseDTO loginUser(UserLoginDTO loginInfo) {
@@ -39,6 +38,16 @@ public class UserServiceImpl implements UserService {
         if (!user.getPassword().equals(loginInfo.getPassword())) {
             throw new RuntimeException("Login Failed");
         }
+
+        return userMapper.toResponse(user);
+    }
+
+    /**
+     * get user info by Id
+     */
+    @Override
+    public UserResponseDTO getUserInfo(Long id) {
+        User user = userRepository.findById(id).get();
 
         return userMapper.toResponse(user);
     }
