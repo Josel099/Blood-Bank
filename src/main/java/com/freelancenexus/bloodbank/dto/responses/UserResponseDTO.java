@@ -3,11 +3,9 @@ package com.freelancenexus.bloodbank.dto.responses;
 import com.freelancenexus.bloodbank.enums.BloodGroup;
 import com.freelancenexus.bloodbank.enums.Roles;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
-@Getter
-@Setter
+@Data
 public class UserResponseDTO {
 
     private Long id;
