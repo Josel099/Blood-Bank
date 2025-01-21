@@ -14,8 +14,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.freelancenexus.bloodbank.dto.requests.UserCreateRequest;
 import com.freelancenexus.bloodbank.dto.requests.UserLoginDTO;
+import com.freelancenexus.bloodbank.dto.requests.UserUpdateRequestDTO;
 import com.freelancenexus.bloodbank.dto.responses.UserResponseDTO;
 import com.freelancenexus.bloodbank.service.UserService;
+import org.springframework.web.bind.annotation.PutMapping;
 
 @CrossOrigin
 @RestController
@@ -39,7 +41,7 @@ public class UserController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
-    @PostMapping("/login")
+    @PutMapping("/login")
     public ResponseEntity<UserResponseDTO> loginUser(@RequestBody UserLoginDTO loginInfo) {
         UserResponseDTO responseDTO = userService.loginUser(loginInfo);
         return new ResponseEntity<>(responseDTO, HttpStatus.OK);
@@ -50,6 +52,13 @@ public class UserController {
         UserResponseDTO response = userService.getUserInfo(id);
         return new ResponseEntity<>(response, HttpStatus.OK);
 
+    }
+
+    @PutMapping
+    public ResponseEntity<UserResponseDTO> updateUserInfo(
+        @RequestBody UserUpdateRequestDTO updateRequestDTO) {
+        UserResponseDTO response = userService.updateUser(updateRequestDTO);
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
 }

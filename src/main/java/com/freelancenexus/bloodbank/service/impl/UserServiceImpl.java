@@ -6,6 +6,7 @@ import com.freelancenexus.bloodbank.db.entities.User;
 import com.freelancenexus.bloodbank.db.repositories.UserRepository;
 import com.freelancenexus.bloodbank.dto.requests.UserCreateRequest;
 import com.freelancenexus.bloodbank.dto.requests.UserLoginDTO;
+import com.freelancenexus.bloodbank.dto.requests.UserUpdateRequestDTO;
 import com.freelancenexus.bloodbank.dto.responses.UserResponseDTO;
 import com.freelancenexus.bloodbank.mappers.UserMapper;
 import com.freelancenexus.bloodbank.service.UserService;
@@ -50,6 +51,18 @@ public class UserServiceImpl implements UserService {
         User user = userRepository.findById(id).get();
 
         return userMapper.toResponse(user);
+    }
+
+    @Override
+    public UserResponseDTO updateUser(UserUpdateRequestDTO updateRequestDTO) {
+
+        User user = userRepository.findById(updateRequestDTO.getId()).get();
+
+        userMapper.updateUserFromDto(updateRequestDTO, user);
+        ;
+
+        return userMapper.toResponse(userRepository.save(user));
+
     }
 
 }
