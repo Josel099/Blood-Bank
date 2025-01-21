@@ -22,6 +22,12 @@ import com.freelancenexus.bloodbank.dto.requests.UserUpdateRequestDTO;
 import com.freelancenexus.bloodbank.dto.responses.UserResponseDTO;
 import com.freelancenexus.bloodbank.service.UserService;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+
 @CrossOrigin
 @RestController
 @RequestMapping("/api/v1/user")
@@ -37,6 +43,9 @@ public class UserController {
     }
 
     @PostMapping("/register")
+    @Operation(summary = "Register a new user", description = "Adds a new user to the system and returns their details.", requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody(description = "User registration details", required = true, content = @Content(schema = @Schema(implementation = UserCreateRequest.class))), responses = {
+        @ApiResponse(responseCode = "200", description = "User registered successfully", content = @Content(schema = @Schema(implementation = UserResponseDTO.class))),
+    })
     public ResponseEntity<UserResponseDTO> addUser(
         @RequestBody UserCreateRequest userCreateRequest) {
         UserResponseDTO response = userService.register(userCreateRequest);
@@ -45,11 +54,18 @@ public class UserController {
     }
 
     @PutMapping("/login")
+    @Operation(summary = "Login user", description = "Logs in a user and returns their details.", requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody(description = "User login information", required = true, content = @Content(schema = @Schema(implementation = UserLoginDTO.class))), responses = {
+        @ApiResponse(responseCode = "200", description = "User logged in successfully", content = @Content(schema = @Schema(implementation = UserResponseDTO.class))),
+    })
     public ResponseEntity<UserResponseDTO> loginUser(@RequestBody UserLoginDTO loginInfo) {
         UserResponseDTO responseDTO = userService.loginUser(loginInfo);
         return new ResponseEntity<>(responseDTO, HttpStatus.OK);
     }
 
+    @Operation(summary = "Fetch user by ID", description = "Retrieves user details by their ID.", parameters = @Parameter(name = "id", description = "User ID", required = true), responses = {
+        @ApiResponse(responseCode = "200", description = "User details retrieved successfully", content = @Content(schema = @Schema(implementation = UserResponseDTO.class))),
+        @ApiResponse(responseCode = "404", description = "User not found")
+    })
     @GetMapping("/{id}")
     public ResponseEntity<UserResponseDTO> fetchUser(@PathVariable Long id) {
         UserResponseDTO response = userService.getUserInfo(id);
@@ -57,6 +73,9 @@ public class UserController {
 
     }
 
+    @Operation(summary = "Update user information", description = "Updates details of an existing user.", requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody(description = "Updated user information", required = true, content = @Content(schema = @Schema(implementation = UserUpdateRequestDTO.class))), responses = {
+        @ApiResponse(responseCode = "200", description = "User updated successfully", content = @Content(schema = @Schema(implementation = UserResponseDTO.class))),
+    })
     @PutMapping
     public ResponseEntity<UserResponseDTO> updateUserInfo(
         @RequestBody UserUpdateRequestDTO updateRequestDTO) {
@@ -64,6 +83,10 @@ public class UserController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
+    @Operation(summary = "Delete user by ID", description = "Deletes a user from the system by their ID.", parameters = @Parameter(name = "id", description = "User ID", required = true), responses = {
+        @ApiResponse(responseCode = "200", description = "User deleted successfully"),
+        @ApiResponse(responseCode = "404", description = "User not found")
+    })
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteUser(@PathVariable Long id) {
         userService.deleteUserById(id);
@@ -77,6 +100,13 @@ public class UserController {
      * @param sort
      * @return
      */
+    @Operation(summary = "Get all users", description = "Retrieves a paginated list of users, excluding ADMIN roles.", parameters = {
+        @Parameter(name = "page", description = "Page number for pagination", example = "0"),
+        @Parameter(name = "size", description = "Number of users per page", example = "10"),
+        @Parameter(name = "sort", description = "Sorting criteria (e.g., id,asc)", example = "id,asc")
+    }, responses = {
+        @ApiResponse(responseCode = "200", description = "Users retrieved successfully", content = @Content(schema = @Schema(implementation = Page.class)))
+    })
 
     @GetMapping
     public ResponseEntity<Page<UserResponseDTO>> getAllUsers(
