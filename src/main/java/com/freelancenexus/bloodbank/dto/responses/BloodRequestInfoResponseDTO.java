@@ -4,6 +4,7 @@ import java.time.ZonedDateTime;
 
 import com.freelancenexus.bloodbank.enums.BloodGroup;
 import com.freelancenexus.bloodbank.enums.RequestStatus;
+import com.freelancenexus.bloodbank.enums.Roles;
 import com.freelancenexus.bloodbank.enums.Urgency;
 
 import lombok.Getter;
@@ -16,6 +17,8 @@ public class BloodRequestInfoResponseDTO {
     private Long id;
 
     private Long userId;
+    
+    private Roles userRole;
 
     private String userName;
 
