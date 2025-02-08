@@ -10,6 +10,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.freelancenexus.bloodbank.db.entities.User;
+import com.freelancenexus.bloodbank.db.repositories.BloodRequestRepository;
 import com.freelancenexus.bloodbank.db.repositories.UserRepository;
 import com.freelancenexus.bloodbank.dto.requests.UserCreateRequest;
 import com.freelancenexus.bloodbank.dto.requests.UserLoginDTO;
@@ -19,6 +20,8 @@ import com.freelancenexus.bloodbank.enums.Roles;
 import com.freelancenexus.bloodbank.mappers.UserMapper;
 import com.freelancenexus.bloodbank.service.UserService;
 
+import jakarta.transaction.Transactional;
+
 @Service
 public class UserServiceImpl implements UserService {
 
@@ -26,11 +29,15 @@ public class UserServiceImpl implements UserService {
 
     private final UserMapper userMapper;
 
+    private final BloodRequestRepository bloodRequestRepository;
 
-    public UserServiceImpl(UserRepository userRepository, UserMapper userMapper) {
+
+    public UserServiceImpl(UserRepository userRepository, UserMapper userMapper,
+        BloodRequestRepository bloodRequestRepository) {
         super();
         this.userRepository = userRepository;
         this.userMapper = userMapper;
+        this.bloodRequestRepository = bloodRequestRepository;
     }
 
     @Override
@@ -74,8 +81,10 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional
     public void deleteUserById(Long id) {
 
+        bloodRequestRepository.deleteByUserId(id);
         userRepository.deleteById(id);
     }
 
