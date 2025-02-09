@@ -11,7 +11,7 @@ This is the backend for the **Blood Banking System**, built using **Spring Boot*
 
 ### 1️⃣ Prerequisites
 Ensure you have the following installed:
-- **Java 17+**
+- **JDK 17+**
 - **Maven**
 - **MySQL**
 
@@ -25,6 +25,12 @@ cd your-repo
 Execute the SQL file located at:
 ```
 /src/main/resources/initial_setup.sql
+```
+After running this file in the database, 
+A default admin user will be created. Use the following credentials to log in via the UI:
+```
+Username: admin
+Password: admin
 ```
 
 
@@ -63,9 +69,15 @@ The API is documented using **Swagger**.
   **[http://localhost:8080/v3/api-docs](http://localhost:8080/v3/api-docs)**
 
 ---
+
+## ⚠️ Security Notice
+
+This project does not include authentication or authorization. The focus is on providing essential APIs without security measures.
+
+---
+
 ## 🛠 Technologies Used
 - **Spring Boot** (REST API)
-- **Spring Security** (Authentication & Authorization)
 - **MySQL** (Database)
 - **JPA** (ORM)
 - **Swagger** (API Documentation)
