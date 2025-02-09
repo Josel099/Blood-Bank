@@ -28,6 +28,7 @@ public interface BloodRequestMapper {
     @Mappings({
         @Mapping(target = "userId", source = "bloodRequestInfo.user.id"),
         @Mapping(target = "userName", source = "bloodRequestInfo.user.userName"),
+        @Mapping(target = "userRole", source = "bloodRequestInfo.user.role")
     })
     BloodRequestInfoResponseDTO toResponseDTO(BloodRequestInfo bloodRequestInfo);
 

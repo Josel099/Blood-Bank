@@ -14,5 +14,7 @@ public interface BloodRequestRepository extends JpaRepository<BloodRequestInfo, 
     Page<BloodRequestInfo> findByStatus(RequestStatus status, Pageable pageable);
 
     Page<BloodRequestInfo> findByUserId(Long userId, Pageable pageable);
+    
+    void deleteByUserId(Long userId); // Custom method to delete requests by user
 
 }
